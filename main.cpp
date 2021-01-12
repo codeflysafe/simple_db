@@ -2,7 +2,7 @@
 #include "bmgr.h"
 #include "instruction.h"
 #include <ctime>
-
+#include <log.h>
 using namespace std;
 
 /**
@@ -37,10 +37,13 @@ int main()
 {
     auto bm = make_shared<BMgr>();
     init_db(bm);
-    time_t start = time(NULL);
+    clock_t start, end;
+    start = clock();
     run_test(bm);
-    time_t end = time(NULL);
-    printf("buffer_size:%d,total_io:%d,total_hit:%d,interval:%ld s",
-           DEF_BUF_SIZE, bm->get_io_count(), bm->get_hit_count(), (end - start));
+    end = clock();
+    char log[500];
+    sprintf(log, "buffer_size:%d,total_io:%d,total_hit:%d,interval:%0.2fs",
+            DEF_BUF_SIZE, bm->get_io_count(), bm->get_hit_count(), (float)(end - start) / CLOCKS_PER_SEC);
+    logger(log);
     return 0;
 }

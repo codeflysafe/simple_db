@@ -1,0 +1,1 @@
+SimpleDB: 2021:1:11:13:56:52	buffer_size:1024,total_io:390997,total_hit:169569,interval:439.37s

@@ -6,7 +6,7 @@
 /*   By: sjhuang <hsjfans@mail.ustc.edu.cn>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 09:23:27 by sjhuang           #+#    #+#             */
-/*   Updated: 2021/01/09 10:42:14 by sjhuang          ###   ########.fr       */
+/*   Updated: 2021/01/12 19:40:26 by sjhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ BMgr::BMgr()
 BMgr::~BMgr()
 {
     clean_buffer();
-    // std::cout << "Total IO count: " << get_io_count() << std::endl;
-    // std::cout << "Total hit count: " << get_hit_count() << std::endl;
     delete dsm;
     delete lru;
 }
@@ -55,13 +53,11 @@ int BMgr::fix_page(int page_id)
 int BMgr::fix_page(bool is_write, int page_id)
 {
     BCB *bcb = get_bcb(page_id);
-    // std::cout << "    op: " << (is_write ? "w" : "r");
     // buffer中不存在该page
     if (bcb == nullptr)
     {
         if (dsm->is_page_exist(page_id))
         {
-            // std::cout << ", page_id: " << page_id;
             int frame_id;
             // buffer已满
             if (free_frames_num == 0)
@@ -72,8 +68,6 @@ int BMgr::fix_page(bool is_write, int page_id)
             {
                 frame_id = DEF_BUF_SIZE - free_frames_num;
                 free_frames_num--;
-                // std::cout << ", frame_id: " << frame_id
-                //           << ", not hit" << ", buffer not full" << std::endl;
             }
             insert_bcb(page_id, frame_id);
             lru->push(frame_id);
@@ -82,7 +76,6 @@ int BMgr::fix_page(bool is_write, int page_id)
             if (!is_write)
             {
                 dsm->read_page(page_id, buffer + frame_id);
-                // std::cout << "    IO count: " << get_io_count() << std::endl;
             }
             return frame_id;
         }
@@ -95,9 +88,7 @@ int BMgr::fix_page(bool is_write, int page_id)
     {
         int frame_id = bcb->get_frame_id();
         lru->update(frame_id);
-        // std::cout << ", page_id: " << page_id << ", frame_id: " << frame_id << ", hit!" << std::endl;
         inc_hit_count();
-        // std::cout << "    hit count: " << get_hit_count() << std::endl;
         return frame_id;
     }
 }
@@ -132,10 +123,6 @@ int BMgr::select_victim()
     int frame_id = lru->get_victim();
     int victim_page_id = get_page_id(frame_id);
 
-    // std::cout << ", frame_id: " << frame_id
-    //           << ", not hit"
-    //           << ", victim_page_id: " << victim_page_id;
-
     int hash = hash_func(victim_page_id);
     auto bcb_list = page_to_frame + hash;
     for (auto i = bcb_list->begin(); i != bcb_list->end(); i++)
@@ -145,20 +132,17 @@ int BMgr::select_victim()
             if (i->is_dirty())
             {
                 dsm->write_page(victim_page_id, buffer + frame_id);
-                // std::cout << ", dirty" << std::endl;
-                // std::cout << "    IO count: " << get_io_count();
             }
             bcb_list->erase(i);
             break;
         }
     }
-    // std::cout << std::endl;
     return frame_id;
 }
 
 void BMgr::clean_buffer()
 {
-    // std::cout << "Cleaning buffer" << std::endl;
+
     for (const auto &bcb_list : page_to_frame)
     {
         for (const auto &i : bcb_list)
@@ -166,7 +150,6 @@ void BMgr::clean_buffer()
             if (i.is_dirty())
             {
                 dsm->write_page(i.get_page_id(), buffer + i.get_frame_id());
-                // std::cout << "    IO count: " << get_io_count() << std::endl;
             }
         }
     }
@@ -186,6 +169,7 @@ void BMgr::unset_dirty(int frame_id)
     bcb->unset_dirty();
 }
 
+// 通过`pag_id` 查找对应的`BCB`
 BCB *BMgr::get_bcb(int page_id)
 {
     int hash = hash_func(page_id);
