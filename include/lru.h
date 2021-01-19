@@ -6,7 +6,7 @@
 /*   By: sjhuang <hsjfans@mail.ustc.edu.cn>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 09:42:12 by sjhuang           #+#    #+#             */
-/*   Updated: 2021/01/09 09:42:12 by sjhuang          ###   ########.fr       */
+/*   Updated: 2021/01/19 10:25:14 by sjhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,28 @@
 class LRU
 {
 public:
-    LRU();
+     LRU();
 
-    ~LRU();
+     ~LRU();
 
-    /**
+     /**
          * 选择一个victim，将其从链表中移出
          */
-    int get_victim();
+     int get_victim();
 
-    /**
+     /**
          * 将frame放入头部
          */
-    void push(int id);
+     void push(int id);
 
-    /**
+     /**
          * 将frame标记为最新使用，从list中移动至头部
          */
-    void update(int id);
+     void update(int id);
 
 private:
-    std::list<int> *lru_list;
-    std::unordered_map<int, std::list<int>::iterator> *lru_map;
+     std::list<int> *lru_list;
+     std::unordered_map<int, std::list<int>::iterator> *lru_map;
 };
 
 #endif

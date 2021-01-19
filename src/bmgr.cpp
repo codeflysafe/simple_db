@@ -6,7 +6,7 @@
 /*   By: sjhuang <hsjfans@mail.ustc.edu.cn>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 09:23:27 by sjhuang           #+#    #+#             */
-/*   Updated: 2021/01/12 19:40:26 by sjhuang          ###   ########.fr       */
+/*   Updated: 2021/01/19 10:54:47 by sjhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ BMgr::BMgr()
 {
     dsm = new DSMgr();
     lru = new LRU;
-    free_frames_num = DEF_BUF_SIZE;
+    free_frames_num = BUFFER_SIZE;
     hit_count = 0;
 }
 
@@ -66,7 +66,7 @@ int BMgr::fix_page(bool is_write, int page_id)
             }
             else
             {
-                frame_id = DEF_BUF_SIZE - free_frames_num;
+                frame_id = BUFFER_SIZE - free_frames_num;
                 free_frames_num--;
             }
             insert_bcb(page_id, frame_id);
@@ -103,7 +103,7 @@ void BMgr::fix_new_page(const Frame::sptr &frame)
     }
     else
     {
-        frame_id = DEF_BUF_SIZE - free_frames_num;
+        frame_id = BUFFER_SIZE - free_frames_num;
         free_frames_num--;
     }
     memcpy((buffer + frame_id)->field, frame->field, FRAME_SIZE);
@@ -115,7 +115,7 @@ void BMgr::fix_new_page(const Frame::sptr &frame)
 
 int BMgr::hash_func(int page_id)
 {
-    return page_id % DEF_BUF_SIZE;
+    return page_id % BUFFER_SIZE;
 }
 
 int BMgr::select_victim()

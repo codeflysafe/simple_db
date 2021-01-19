@@ -13,7 +13,7 @@ void init_db(const BMgr::sptr &bm)
 {
     for (unsigned int j = 1; j <= 50000; j++)
     {
-        auto frame = generate_random_frame();
+        auto frame = generate_frame();
         bm->fix_new_page(frame);
     }
 }
@@ -43,7 +43,7 @@ int main()
     end = clock();
     char log[500];
     sprintf(log, "buffer_size:%d,total_io:%d,total_hit:%d,interval:%0.2fs",
-            DEF_BUF_SIZE, bm->get_io_count(), bm->get_hit_count(), (float)(end - start) / CLOCKS_PER_SEC);
+            BUFFER_SIZE, bm->get_io_count(), bm->get_hit_count(), (float)(end - start) / CLOCKS_PER_SEC);
     logger(log);
     return 0;
 }

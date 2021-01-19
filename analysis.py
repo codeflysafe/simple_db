@@ -28,11 +28,12 @@ def extrac_infos(log_path: str):
     with open(log_path) as f:
         lines = f.readlines()
         for line in tqdm(lines):
-            words = line.split(',')
-            buffer_size = int(words[0].split(';')[1])
-            total_io = int(words[1].split(';')[1])
-            total_hit = int(words[2].split(';')[1])
-            interval = float(words[3].split(';')[1])
+            words = line.replace('\t', ',').replace('\n', '').split(',')
+            # print(words)
+            buffer_size = int(words[1].split(':')[1])
+            total_io = int(words[2].split(':')[1])
+            total_hit = int(words[3].split(':')[1])
+            interval = float(words[4].split(':')[1][:-1])
             buffer_sizes.append(buffer_size)
             total_ios.append(total_io)
             total_hits.append(total_hit)
@@ -47,7 +48,7 @@ def main(opt):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('analysis')
-    parser.add_argument('-log_path', type=str, default='./out/out.log')
-    parser.add_argument('-save_path', type=str, default='./out')
+    parser.add_argument('-log_path', type=str, default='log.txt')
+    parser.add_argument('-save_path', type=str, default='.')
     opt = parser.parse_args()
     main(opt)

@@ -6,13 +6,13 @@
 /*   By: sjhuang <hsjfans@mail.ustc.edu.cn>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 09:24:42 by sjhuang           #+#    #+#             */
-/*   Updated: 2021/01/09 10:17:47 by sjhuang          ###   ########.fr       */
+/*   Updated: 2021/01/19 10:24:36 by sjhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-Frame::sptr generate_random_frame()
+Frame::sptr generate_frame()
 {
     auto frame = std::make_shared<Frame>();
     for (unsigned int i = 0; i < FRAME_SIZE - 1; i++)
