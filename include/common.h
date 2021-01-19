@@ -6,7 +6,7 @@
 /*   By: sjhuang <hsjfans@mail.ustc.edu.cn>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 09:24:52 by sjhuang           #+#    #+#             */
-/*   Updated: 2021/01/19 14:03:15 by sjhuang          ###   ########.fr       */
+/*   Updated: 2021/01/19 16:26:59 by sjhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // page size 4KB
 #define FRAME_SIZE 4096
 // BufferSize 1k
-#define BUFFER_SIZE 8192
+#define BUFFER_SIZE 65536
 
 struct Frame
 {

@@ -1,3 +1,6 @@
+SimpleDB: 2021:1:19:16:39:43	buffer_size:65536,total_io:50000,total_hit:500000,interval:478.18s
+SimpleDB: 2021:1:19:16:2:58	buffer_size:32768,total_io:103588,total_hit:440146,interval:585.52s
+SimpleDB: 2021:1:19:15:29:4	buffer_size:16384,total_io:185228,total_hit:370422,interval:482.67s
 SimpleDB: 2021:1:19:14:14:23	buffer_size:8192,total_io:251503,total_hit:308946,interval:456.82s
 SimpleDB: 2021:1:19:13:50:56	buffer_size:4096,total_io:306187,total_hit:255479,interval:454.61s
 SimpleDB: 2021:1:19:13:21:0	buffer_size:2048,total_io:351820,total_hit:209580,interval:452.73s

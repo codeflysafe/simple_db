@@ -6,19 +6,42 @@ Parse the info from log.
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import argparse
+import pandas as pd
 
 
-def draw(buffer_sizes: list, totoal_ios: list, total_hits: list, intervals: list, path: str) -> None:
+def draw(buffer_sizes: list, total_ios: list, total_hits: list, intervals: list, path: str) -> None:
     """ Draw infos
     """
-    plt.plot(buffer_sizes, totoal_ios, c='r', label='total io')
+    plt.subplot(311)
+    plt.plot(buffer_sizes, total_ios, c='r', label='total io')
     plt.plot(buffer_sizes, total_hits, c='b', label='total hits')
-    plt.plot(buffer_sizes, intervals, c='y', label='intervals')
     plt.xlabel('buffer_size')
-    plt.ylabel('info')
+    plt.ylabel('count')
     plt.legend()
-    plt.savefig(f'{path}/info.png')
-    plt.show()
+    # plt.savefig(f'{path}/info.png')
+    # plt.show()
+    plt.subplot(312)
+    hit_rates = [hit * 1.0 /
+                 500000 for hit in total_hits]
+    plt.plot(buffer_sizes, hit_rates, label='hit rate')
+    plt.ylabel('hit rate')
+    plt.legend()
+    plt.subplot(313)
+    plt.plot(buffer_sizes, intervals, c='y', label='intervals')
+    plt.ylabel('s')
+    plt.legend()
+    plt.savefig(f'{path}/analysis.png')
+
+    analysis = pd.DataFrame({
+        'buffer_sizes': buffer_sizes,
+        'total_ios': total_ios,
+        'total_hits': total_hits,
+        'hit_rates': hit_rates,
+        'intervals/s': intervals,
+
+    })
+    analysis.to_csv('analysis.csv', index=False)
+    # plt.show()
 
 
 def extrac_infos(log_path: str):
