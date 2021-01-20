@@ -9,8 +9,9 @@ using namespace std;
  * 初始化数据库文件
  * 随机写入50000个page
  */
-void init_db(const BMgr::sptr &bm)
+void init_db()
 {
+    auto bm = make_shared<BMgr>();
     for (unsigned int j = 1; j <= 50000; j++)
     {
         auto frame = generate_frame();
@@ -35,8 +36,8 @@ void run_test(const BMgr::sptr &bm)
 
 int main()
 {
+    // init_db();
     auto bm = make_shared<BMgr>();
-    init_db(bm);
     clock_t start, end;
     start = clock();
     run_test(bm);
