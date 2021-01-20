@@ -36,7 +36,7 @@ void run_test(const BMgr::sptr &bm)
 
 int main()
 {
-    // init_db();
+    init_db();
     auto bm = make_shared<BMgr>();
     clock_t start, end;
     start = clock();

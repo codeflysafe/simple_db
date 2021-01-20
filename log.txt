@@ -1,1 +1,12 @@
-SimpleDB: 2021:1:20:13:15:5	buffer_size:131072,total_io:23955,total_hit:452977,interval:442.87s
+SimpleDB: 2021:1:20:15:15:41	buffer_size:64,total_io:451359,total_hit:55625,interval:446.18s
+SimpleDB: 2021:1:20:15:26:43	buffer_size:128,total_io:428999,total_hit:78736,interval:482.22s
+SimpleDB: 2021:1:20:15:37:6	buffer_size:256,total_io:404020,total_hit:104677,interval:474.38s
+SimpleDB: 2021:1:20:15:48:58	buffer_size:512,total_io:374791,total_hit:134794,interval:471.47s
+SimpleDB: 2021:1:20:15:59:49	buffer_size:1024,total_io:341001,total_hit:169565,interval:473.64s
+SimpleDB: 2021:1:20:16:10:59	buffer_size:2048,total_io:301827,total_hit:209569,interval:488.13s
+SimpleDB: 2021:1:20:16:22:3	buffer_size:4096,total_io:256206,total_hit:255440,interval:467.14s
+SimpleDB: 2021:1:20:16:32:4	buffer_size:8192,total_io:201603,total_hit:308746,interval:452.52s
+SimpleDB: 2021:1:20:16:41:35	buffer_size:16384,total_io:135815,total_hit:369294,interval:459.86s
+SimpleDB: 2021:1:20:16:51:46	buffer_size:32768,total_io:57549,total_hit:432375,interval:441.54s
+SimpleDB: 2021:1:20:17:0:42	buffer_size:65536,total_io:23955,total_hit:452977,interval:432.62s
+SimpleDB: 2021:1:20:17:10:1	buffer_size:131072,total_io:23955,total_hit:452977,interval:448.06s
